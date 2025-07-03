@@ -83,6 +83,7 @@ The following results were obtained with a single NVIDIA 4090 GPU:
 
 ## Citation
 If you find this code useful for your research, please cite our paper.
+
 @inproceedings{tao2023adanic,
   title={Self-Reinforcing Prototype Evolution with Dual-Knowledge Cooperation for Semi-Supervised Lifelong Person Re-Identification},
   author={Xu, Kunlun and Zhuo, Fan and Li, Jiangmeng and Zou, Xu and Jiahuan Zhou},
