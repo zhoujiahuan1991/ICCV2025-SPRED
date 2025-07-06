@@ -68,7 +68,7 @@ PRID
     └──..
 ```
 ## Quick Start
-### Training Distribution Rehearser Learning (DRL)
+### Training DANet
 ```shell
 `CUDA_VISIBLE_DEVICES=1 python train_transfer.py --logs-dir transfer_model  --data-dir /path/to/PRID`
 ```
