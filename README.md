@@ -34,7 +34,7 @@ The person re-identification datasets excepted for **LPW_s2** can be download fo
 
 Since the DukeMTMC-reid dataset, which is widely used in lifelong person re-identification (LReID), has ben withdrawn by the authors, we have constructed an alternative datset LPW_s2 to faciliate the development of LReID. The LPW_s2 arranged in Market-1501 format can be downloaded form the following links:
 [Baidu Yun](https://pan.baidu.com/s/14NDh1TFB6l6Uvb5NSfh3Yg?pwd=2047)
-[Google]
+[Google Drive](https://drive.google.com/file/d/1fq9AvseqRew20Cp8drMGoWuZ1hNdPPZK/view?usp=sharing)
 
 
 Then unzip them and rename them under the directory like
