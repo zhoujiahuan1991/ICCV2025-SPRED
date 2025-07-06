@@ -30,7 +30,13 @@ pip install -r requirement.txt
 python setup.py develop
 ```
 ## Prepare Datasets
-Download the person re-identification datasets [Market-1501](https://drive.google.com/file/d/0B8-rUzbwVRk0c054eEozWG9COHM/view), [MSMT17](http://www.pkuvmc.com/dataset.html), [CUHK03](https://github.com/zhunzhong07/person-re-ranking/tree/master/evaluation/data/CUHK03), [SenseReID](https://drive.google.com/file/d/0B56OfSrVI8hubVJLTzkwV2VaOWM/view?resourcekey=0-PKtdd5m_Jatmi2n9Kb_gFQ). Other datasets can be prepared following [Torchreid_Datasets_Doc](https://kaiyangzhou.github.io/deep-person-reid/datasets.html) and [light-reid](https://github.com/wangguanan/light-reid).
+The person re-identification datasets excepted for **LPW_s2** can be download following [DASK](https://github.com/zhoujiahuan1991/AAAI2025-LReID-DASK).
+
+Since the DukeMTMC-reid dataset, which is widely used in lifelong person re-identification (LReID), has ben withdrawn by the authors, we have constructed an alternative datset LPW_s2 to faciliate the development of LReID. The LPW_s2 arranged in Market-1501 format can be downloaded form the following links:
+[Baidu Yun](https://pan.baidu.com/s/14NDh1TFB6l6Uvb5NSfh3Yg?pwd=2047)
+[Google]
+
+
 Then unzip them and rename them under the directory like
 ```
 PRID
@@ -42,7 +48,7 @@ PRID
 │   └──..
 ├── CUHK-SYSU
 │   └──..
-├── LPW
+├── LPW_s2
 │   └──..
 ├── grid
 │   └──..
@@ -62,7 +68,7 @@ PRID
 ## Quick Start
 ### Training Distribution Rehearser Learning (DRL)
 ```shell
-`CUDA_VISIBLE_DEVICES=1 python train_rehearser.py --logs-dir transfer_model --mobile --learn_kernel --data-dir /path/to/PRID`
+`CUDA_VISIBLE_DEVICES=1 python train_transfer.py --logs-dir transfer_model  --data-dir /path/to/PRID`
 ```
 
 ### SPRED Training 
@@ -83,7 +89,6 @@ The following results were obtained with a single NVIDIA 4090 GPU:
 
 ## Citation
 If you find this code useful for your research, please cite our paper.
-
 @inproceedings{tao2023adanic,
   title={Self-Reinforcing Prototype Evolution with Dual-Knowledge Cooperation for Semi-Supervised Lifelong Person Re-Identification},
   author={Xu, Kunlun and Zhuo, Fan and Li, Jiangmeng and Zou, Xu and Jiahuan Zhou},

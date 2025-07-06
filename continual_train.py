@@ -207,14 +207,12 @@ def main_worker(args, cfg):
         model_old_list=copy.deepcopy(model_list)
         for i in range(args.n_model):
             ckpt_name = [x + '_checkpoint-{}.pth.tar'.format(i) for x in training_set]   # obatin pretrained model name
-            # print(ckpt_name[0])
-            # print(args.test_folder)
-            # exit(0)
+            
             checkpoint = load_checkpoint(osp.join(args.resume_folder, ckpt_name[0]))  # load the first model
             copy_state_dict(checkpoint['state_dict'], model_list[i])     #    
             for step in range(start_set - 1):            
                 model_old_list[i] = copy.deepcopy( model_list[i])    # backup the old model   
-                model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
+                # model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
                 model_list[i].cuda()             
                 checkpoint = load_checkpoint(osp.join(args.resume_folder, ckpt_name[step + 1]))
                 copy_state_dict(checkpoint['state_dict'],  model_list[i])
@@ -239,14 +237,12 @@ def main_worker(args, cfg):
         model_old_list=copy.deepcopy(model_list)
         for i in range(args.n_model):
             ckpt_name = [x + '_checkpoint-{}.pth.tar'.format(i) for x in training_set]   # obatin pretrained model name
-            # print(ckpt_name[0])
-            # print(args.test_folder)
-            # exit(0)
+           
             checkpoint = load_checkpoint(osp.join(args.test_folder, ckpt_name[0]))  # load the first model
             copy_state_dict(checkpoint['state_dict'], model_list[i])     #    
             for step in range(len(ckpt_name)-1):            
                 model_old_list[i] = copy.deepcopy( model_list[i])    # backup the old model   
-                model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
+                # model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
                 model_list[i].cuda()             
                 checkpoint = load_checkpoint(osp.join(args.test_folder, ckpt_name[step + 1]))
                 copy_state_dict(checkpoint['state_dict'],  model_list[i])
@@ -371,31 +367,21 @@ def train_dataset(cfg, args, all_train_sets, all_test_only_sets, set_index, mode
     dataset, num_classes, train_loader, test_loader, init_loader, name = all_train_sets[
         set_index]  # status of current dataset    
 
-    Epochs= args.epochs0 if 0==set_index else args.epochs          
+    Epochs= args.epochs0 if 0==set_index else args.epochs   
 
-    if set_index<=1:
-        add_num = 0
-        old_model=None
-    else:
-        add_num = sum(
-            [all_train_sets[i][1] for i in range(set_index - 1)])  # get person number in existing domains
-    
+    add_num = 0       
+
+      
     model_old_list=[]
-    if set_index>0:        
-        # after sampling rehearsal, recalculate the addnum(historical ID number)
-        add_num = sum([all_train_sets[i][1] for i in range(set_index)])  # get model out_dim
+    if set_index>0:                
         for i in range(args.n_model):
             model = model_list[i]   # fetch a model
-            # Expand the dimension of classifier
-            org_classifier_params = model.module.classifier.weight.data
-            model.module.classifier = nn.Linear(out_channel, add_num + num_classes, bias=False) # reinitialize classifier
-            if set_index>0:   # 第一个数据集的
-                model.module.classifier.weight.data[:add_num].copy_(org_classifier_params)  # store the learned paprameter
+           
             model.cuda()    
             # Initialize classifer with class centers    
             class_centers = initial_classifier(model, init_loader)  # obtain the feature centers of new IDs
-           
-            model.module.classifier.weight.data[add_num:].copy_(class_centers)  # initialize the classifiers of the new IDs
+            model.module.prototype.data.copy_(class_centers) 
+            
             model.cuda()
             '''store the old model'''
             old_model = copy.deepcopy(model)    # copy the old model

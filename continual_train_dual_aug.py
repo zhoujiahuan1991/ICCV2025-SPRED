@@ -13,12 +13,10 @@ from reid.utils.serialization import load_checkpoint, save_checkpoint, copy_stat
 from reid.utils.lr_scheduler import WarmupMultiStepLR
 from reid.utils.feature_tools import *
 from reid.models.layers import DataParallel
-# from reid.models.resnet import make_model
 from reid.models.resnet import make_model, JointModel
 from reid.trainer_semi_dual_aug import Trainer,eval_train
 from torch.utils.tensorboard import SummaryWriter
 
-# from lreid_dataset.datasets.get_data_loaders_semi import build_data_loaders_semi, get_data_purify
 from lreid_dataset_semi.datasets.get_data_loaders_semi_s_w import build_data_loaders_semi, get_data_purify_shrinkmatch
 from tools.Logger_results import Logger_res
 from reid.evaluation.fast_test import fast_test_p_s
@@ -151,7 +149,7 @@ def main_worker(args, cfg):
             copy_state_dict(checkpoint['state_dict'], model_list[i])     #    
             for step in range(start_set - 1):            
                 model_old_list[i] = copy.deepcopy( model_list[i])    # backup the old model   
-                model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
+                # model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
                 model_list[i].cuda()             
                 checkpoint = load_checkpoint(osp.join(args.resume_folder, ckpt_name[step + 1]))
                 copy_state_dict(checkpoint['state_dict'],  model_list[i])
@@ -183,7 +181,7 @@ def main_worker(args, cfg):
             copy_state_dict(checkpoint['state_dict'], model_list[i])     #    
             for step in range(len(ckpt_name)-1):            
                 model_old_list[i] = copy.deepcopy( model_list[i])    # backup the old model   
-                model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
+                # model_list[i].module.classifier = nn.Linear(2048, 500*(step+1 +1), bias=False) # reinitialize classifier                
                 model_list[i].cuda()             
                 checkpoint = load_checkpoint(osp.join(args.test_folder, ckpt_name[step + 1]))
                 copy_state_dict(checkpoint['state_dict'],  model_list[i])
@@ -227,8 +225,8 @@ def main_worker(args, cfg):
         print("=> Start epoch {}  best mAP {:.1%}".format(start_epoch, best_mAP))
         save_name=osp.dirname(args.evaluate)+'/{}.png'.format(first_train_set[-1])
         visual_purification(model, first_train_set[4],add_num=0,save_name=save_name)
-        # fast_test_p_s(model_list[i], all_train_sets, all_test_only_sets, set_index=0, logger=logger_res,
-        #                   args=args,writer=writer) 
+        fast_test_p_s(model_list[i], all_train_sets, all_test_only_sets, set_index=0, logger=logger_res,
+                          args=args,writer=writer) 
         exit(0)
     # Evaluator
     if args.MODEL in ['50x']:
@@ -255,9 +253,7 @@ def main_worker(args, cfg):
                 print('********combining new model and old model with alpha {}********\n'.format(best_alpha))
                 model_list[i] = linear_combination(args, model_list[i], model_old_list[i], best_alpha)           
                 logger_res.append("*******testing the model-{} for {}*********".format(i+1,all_train_sets[i][-1]))
-                print("*******testing the model-{} for {}*********".format(i+1,all_train_sets[i][-1]))
-                # test_model(model_list[i], all_train_sets, all_test_only_sets, set_index, logger_res=logger_res)   
-                # test_model(model2, all_train_sets, all_test_only_sets, set_index, logger_res=logger_res)   
+                print("*******testing the model-{} for {}*********".format(i+1,all_train_sets[i][-1])) 
                 mAP =fast_test_p_s(model_list[i], all_train_sets, all_test_only_sets, set_index=set_index, logger=logger_res,
                           args=args,writer=writer)  
     print('finished')
@@ -307,30 +303,17 @@ def train_dataset(cfg, args, all_train_sets, all_test_only_sets, set_index, mode
 
     Epochs= args.epochs0 if 0==set_index else args.epochs          
 
-    if set_index<=1:
-        add_num = 0
-        old_model=None
-    else:
-        add_num = sum(
-            [all_train_sets[i][1] for i in range(set_index - 1)])  # get person number in existing domains
-    
+    add_num = 0
     model_old_list=[]
-    if set_index>0:        
+    if set_index>0:                
         
-        add_num = sum([all_train_sets[i][1] for i in range(set_index)])  # get model out_dim
         for i in range(args.n_model):
             model = model_list[i]   # fetch a model
-            # Expand the dimension of classifier
-            org_classifier_params = model.module.classifier.weight.data
-            model.module.classifier = nn.Linear(out_channel, add_num + num_classes, bias=False) # reinitialize classifier
-            if set_index>0:   # 第一个数据集的
-                model.module.classifier.weight.data[:add_num].copy_(org_classifier_params)  # store the learned paprameter
-            model.cuda()    
-            # Initialize classifer with class centers    
+            
             class_centers = initial_classifier(model, init_loader)  # obtain the feature centers of new IDs
            
-
-            model.module.classifier.weight.data[add_num:].copy_(class_centers)  # initialize the classifiers of the new IDs
+            model.module.prototype.data.copy_(class_centers)
+            # model.module.classifier.weight.data[add_num:].copy_(class_centers)  # initialize the classifiers of the new IDs
             model.cuda()
             '''store the old model'''
             old_model = copy.deepcopy(model)    # copy the old model
@@ -352,10 +335,7 @@ def train_dataset(cfg, args, all_train_sets, all_test_only_sets, set_index, mode
                 print('not requires_grad:', key)
                 continue
             params += [{"params": [value], "lr": args.lr, "weight_decay": args.weight_decay}]
-            # if "bottleneck" in key or "classifier" in key:
-            #     params += [{"params": [value], "lr": args.lr, "weight_decay": args.weight_decay}]
-            # else:
-            #     params += [{"params": [value], "lr": args.lr*0.1, "weight_decay": args.weight_decay}]
+            
         if args.optimizer == 'Adam':
             optimizer = torch.optim.Adam(params)
         elif args.optimizer == 'SGD':
@@ -372,17 +352,10 @@ def train_dataset(cfg, args, all_train_sets, all_test_only_sets, set_index, mode
         All_Labels=[x[1] for x in dataset.train]    # 所有标签
         # print(max(All_Labels),min(All_Labels),num_classes)
         Keep=[x[1]>=0 for x in dataset.train]       # 正确标签
-        # print(min(torch.tensor(All_Labels)[torch.tensor(Keep)]))
-        # train_loader,init_loader_new=get_data_purify(dataset, height=256, width=128, batch_size=args.batch_size,
-        #                      workers=args.workers, num_instances=args.num_instances, Keep=Keep, Pseudo=All_Labels)
         train_loader,init_loader_new=get_data_purify_shrinkmatch(dataset, height=256, width=128, batch_size=args.batch_size,
                              workers=args.workers, num_instances=args.num_instances, Keep=Keep, Pseudo=All_Labels)
         
-        # Initial_Labels=[]   # 只保留正确标签
-        # for d in dataset.train:
-        #     if -1!= d[1]:
-        #         Initial_Labels.append(d[1])
-        # init_data=[x for x in dataset.train if x[1]>=0]
+        
         trainer = Trainer(cfg, args, model_list, model_old_list, add_num + num_classes, dataset.train, All_Labels,writer=writer,prototypes=prototypes)
         
         trainer.obtain_cluster(init_loader_new, add_num,trainer.model_list, dataset_name=name) # 运行聚类算法
