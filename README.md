@@ -78,7 +78,7 @@ Training + evaluation:
 ```shell
 sh work.sh
 ```
-### SPRED${}^\ddag$ Training 
+### SPRED<sub>^\ddag</sub> Training 
 Training + evaluation:
 ```shell
 sh work_dual-aug.sh
