@@ -30,7 +30,7 @@ pip install -r requirement.txt
 python setup.py develop
 ```
 ## Prepare Datasets
-The person re-identification datasets excepted for **LPW_s2** can be download following [DASK](https://github.com/zhoujiahuan1991/AAAI2025-LReID-DASK).
+The person re-identification datasets, excepted for **LPW_s2** can be download following [DASK](https://github.com/zhoujiahuan1991/AAAI2025-LReID-DASK).
 
 Since the DukeMTMC-reid dataset, which is widely used in lifelong person re-identification (LReID), has ben withdrawn by the authors, we have constructed an alternative datset LPW_s2 to faciliate the development of LReID. The **LPW_s2** arranged in Market-1501 format can be downloaded from the following links:
 
@@ -78,7 +78,7 @@ Training + evaluation:
 ```shell
 sh work.sh
 ```
-### SPRED$^\ddag$ Training 
+### SPRED${}^\ddag$ Training 
 Training + evaluation:
 ```shell
 sh work_dual-aug.sh
