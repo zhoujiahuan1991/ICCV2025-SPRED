@@ -23,16 +23,16 @@ The *official* repository for  [Self-Reinforcing Prototype Evolution with Dual-K
 
 ## Installation
 ```shell
-conda create -n IRL python=3.7
-conda activate IRL
+conda create -n SLReID python=3.7
+conda activate SLReID
 pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
 pip install -r requirement.txt
 python setup.py develop
 ```
 ## Prepare Datasets
-The person re-identification datasets, excepted for **LPW_s2** can be download following [DASK](https://github.com/zhoujiahuan1991/AAAI2025-LReID-DASK).
+The person re-identification datasets, except for **LPW_s2**, can be downloaded following [DASK](https://github.com/zhoujiahuan1991/AAAI2025-LReID-DASK).
 
-Since the DukeMTMC-reid dataset, which is widely used in lifelong person re-identification (LReID), has ben withdrawn by the authors, we have constructed an alternative datset LPW_s2 to faciliate the development of LReID. The **LPW_s2** arranged in Market-1501 format can be downloaded from the following links:
+Since the DukeMTMC-reid dataset, which is widely used in lifelong person re-identification (LReID), has been withdrawn by the authors, we have constructed an alternative dataset, LPW_s2, to facilitate the development of LReID. The **LPW_s2** arranged in Market-1501 format can be downloaded from the following links:
 
 [Baidu Yun](https://pan.baidu.com/s/14NDh1TFB6l6Uvb5NSfh3Yg?pwd=2047)
 
