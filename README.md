@@ -92,7 +92,7 @@ The following results were obtained with a single NVIDIA 4090 GPU:
 ## Citation
 If you find this code useful for your research, please cite our paper.
 ```
-@inproceedings{tao2023adanic,
+@inproceedings{xu2025self,
   title={Self-Reinforcing Prototype Evolution with Dual-Knowledge Cooperation for Semi-Supervised Lifelong Person Re-Identification},
   author={Xu, Kunlun and Zhuo, Fan and Li, Jiangmeng and Zou, Xu and Jiahuan Zhou},
   booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
@@ -104,7 +104,7 @@ If you find this code useful for your research, please cite our paper.
 
 
 #### Image-level Distribution Modeling and Transfer:
-```
+```shell
 @inproceedings{xu2025dask,
   title={Dask: Distribution rehearsing via adaptive style kernel learning for exemplar-free lifelong person re-identification},
   author={Xu, Kunlun and Jiang, Chenghao and Xiong, Peixi and Peng, Yuxin and Zhou, Jiahuan},
@@ -116,7 +116,15 @@ If you find this code useful for your research, please cite our paper.
 }
 ```
 #### Feature-level Distribution Modeling and Prototyping:
-```
+```shell
+@article{zhou2025distribution,
+  title={Distribution-Aware Knowledge Aligning and Prototyping for Non-Exemplar Lifelong Person Re-Identification},
+  author={Zhou, Jiahuan and Xu, Kunlun and Zhuo, Fan and Zou, Xu and Peng, Yuxin},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2025},
+  publisher={IEEE}
+}
+
 @inproceedings{xu2024distribution,
   title={Distribution-aware Knowledge Prototyping for Non-exemplar Lifelong Person Re-identification},
   author={Xu, Kunlun and Zou, Xu and Peng, Yuxin and Zhou, Jiahuan},
@@ -126,7 +134,7 @@ If you find this code useful for your research, please cite our paper.
 }
 ```
 #### Long Short-Term Knowledge Rectification and Consolidation:
-```
+```shell
 @article{xu2025long,
   title={Long Short-Term Knowledge Decomposition and Consolidation for Lifelong Person Re-Identification},
   author={Xu, Kunlun and Liu, Zichen and Zou, Xu and Peng, Yuxin and Zhou, Jiahuan},
@@ -147,7 +155,7 @@ If you find this code useful for your research, please cite our paper.
 }
 ```
 #### Lifelong Learning with Label Noise:
-``` 
+```shell 
 @inproceedings{xu2024mitigate,
   title={Mitigate Catastrophic Remembering via Continual Knowledge Purification for Noisy Lifelong Person Re-Identification},
   author={Xu, Kunlun and Zhang, Haozhuo and Li, Yu and Peng, Yuxin and Zhou, Jiahuan},
@@ -158,7 +166,7 @@ If you find this code useful for your research, please cite our paper.
 ```
 
 #### Prompt-guided Adaptive Knowledge Consolidation:
-```
+```shell
 @article{li2024exemplar,
   title={Exemplar-Free Lifelong Person Re-identification via Prompt-Guided Adaptive Knowledge Consolidation},
   author={Li, Qiwei and Xu, Kunlun and Peng, Yuxin and Zhou, Jiahuan},
@@ -170,7 +178,7 @@ If you find this code useful for your research, please cite our paper.
 ```
 
 #### Compatible Lifelong Learning:
-```
+```shell
 @inproceedings{cui2024learning,
   title={Learning Continual Compatible Representation for Re-indexing Free Lifelong Person Re-identification},
   author={Cui, Zhenyu and Zhou, Jiahuan and Wang, Xun and Zhu, Manyu and Peng, Yuxin},
