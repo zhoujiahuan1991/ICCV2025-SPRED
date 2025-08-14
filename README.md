@@ -91,37 +91,20 @@ The following results were obtained with a single NVIDIA 4090 GPU:
 
 ## Citation
 If you find this code useful for your research, please cite our paper.
-
+```
 @inproceedings{tao2023adanic,
   title={Self-Reinforcing Prototype Evolution with Dual-Knowledge Cooperation for Semi-Supervised Lifelong Person Re-Identification},
   author={Xu, Kunlun and Zhuo, Fan and Li, Jiangmeng and Zou, Xu and Jiahuan Zhou},
   booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
   year={2025}
 }
-
+```
 
 ### We have conducted a series of research in Lifelong Person Re-Identification as follows.
 
-#### Long Short-Term Knowledge Decomposition, Rectification and Consolidation:
-@article{xu2025long,
-  title={Long Short-Term Knowledge Decomposition and Consolidation for Lifelong Person Re-Identification},
-  author={Xu, Kunlun and Liu, Zichen and Zou, Xu and Peng, Yuxin and Zhou, Jiahuan},
-  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  year={2025},
-  publisher={IEEE}
-}
 
-@inproceedings{xu2024lstkc,
-  title={LSTKC: Long Short-Term Knowledge Consolidation for Lifelong Person Re-identification},
-  author={Xu, Kunlun and Zou, Xu and Zhou, Jiahuan},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-  volume={38},
-  number={14},
-  pages={16202--16210},
-  year={2024}
-}
-
-#### Imgae-level Distribution Modeling and Transfer:
+#### Image-level Distribution Modeling and Transfer:
+```
 @inproceedings{xu2025dask,
   title={Dask: Distribution rehearsing via adaptive style kernel learning for exemplar-free lifelong person re-identification},
   author={Xu, Kunlun and Jiang, Chenghao and Xiong, Peixi and Peng, Yuxin and Zhou, Jiahuan},
@@ -131,8 +114,9 @@ If you find this code useful for your research, please cite our paper.
   pages={8915--8923},
   year={2025}
 }
-
+```
 #### Feature-level Distribution Modeling and Prototyping:
+```
 @inproceedings{xu2024distribution,
   title={Distribution-aware Knowledge Prototyping for Non-exemplar Lifelong Person Re-identification},
   author={Xu, Kunlun and Zou, Xu and Peng, Yuxin and Zhou, Jiahuan},
@@ -140,10 +124,30 @@ If you find this code useful for your research, please cite our paper.
   pages={16604--16613},
   year={2024}
 }
+```
+#### Long Short-Term Knowledge Rectification and Consolidation:
+```
+@article{xu2025long,
+  title={Long Short-Term Knowledge Decomposition and Consolidation for Lifelong Person Re-Identification},
+  author={Xu, Kunlun and Liu, Zichen and Zou, Xu and Peng, Yuxin and Zhou, Jiahuan},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2025},
+  publisher={IEEE}
+}
 
 
-
-#### Lifelong Learning with Label Noise: 
+@inproceedings{xu2024lstkc,
+  title={Lstkc: Long short-term knowledge consolidation for lifelong person re-identification},
+  author={Xu, Kunlun and Zou, Xu and Zhou, Jiahuan},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={14},
+  pages={16202--16210},
+  year={2024}
+}
+```
+#### Lifelong Learning with Label Noise:
+``` 
 @inproceedings{xu2024mitigate,
   title={Mitigate Catastrophic Remembering via Continual Knowledge Purification for Noisy Lifelong Person Re-Identification},
   author={Xu, Kunlun and Zhang, Haozhuo and Li, Yu and Peng, Yuxin and Zhou, Jiahuan},
@@ -151,8 +155,10 @@ If you find this code useful for your research, please cite our paper.
   pages={5790--5799},
   year={2024}
 }
+```
 
 #### Prompt-guided Adaptive Knowledge Consolidation:
+```
 @article{li2024exemplar,
   title={Exemplar-Free Lifelong Person Re-identification via Prompt-Guided Adaptive Knowledge Consolidation},
   author={Li, Qiwei and Xu, Kunlun and Peng, Yuxin and Zhou, Jiahuan},
@@ -161,8 +167,10 @@ If you find this code useful for your research, please cite our paper.
   year={2024},
   publisher={Springer}
 }
+```
 
 #### Compatible Lifelong Learning:
+```
 @inproceedings{cui2024learning,
   title={Learning Continual Compatible Representation for Re-indexing Free Lifelong Person Re-identification},
   author={Cui, Zhenyu and Zhou, Jiahuan and Wang, Xun and Zhu, Manyu and Peng, Yuxin},
@@ -170,6 +178,7 @@ If you find this code useful for your research, please cite our paper.
   pages={16614--16623},
   year={2024}
 }
+```
 
 ## Acknowledgement
 Our code is based on the PyTorch implementation of [LSTKC](https://github.com/zhoujiahuan1991/AAAI2024-LSTKC) and [CoP](https://github.com/vimar-gu/ColorPromptReID).
